@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password - Urja Thermal Plant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #420000 0%, #7a0000 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #be0000 0%, #8b0000 100%);
+            padding: 1.5rem;
+            border-bottom: none;
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 1rem;
+        }
+
+        .logo-container img {
+            width: 300px;
+            height: auto;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .security-badge {
+            background: rgba(190, 0, 0, 0.1);
+            color: #be0000;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(190, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(190, 0, 0, 0.1);
+            border-color: #be0000;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #be0000 0%, #8b0000 100%);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 12px;
+            border: none;
+            width: 100%;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #8b0000 0%, #600000 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(190, 0, 0, 0.2);
+        }
+
+        .error-message {
+            background: rgba(190, 0, 0, 0.1);
+            border: 1px solid rgba(190, 0, 0, 0.2);
+            color: #be0000;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .success-message {
+            background: rgba(0, 190, 0, 0.1);
+            border: 1px solid rgba(0, 190, 0, 0.2);
+            color: #007b00;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="logo-container">
+                            <img src="{{ url_for('static', filename='images/urja-logo.png') }}" alt="Urja Thermal Plant Logo">
+                        </div>
+                        <h2>Secure Rfid Portal</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="security-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            RED TEAM EXERCISE
+                        </div>
+                        
+                        <form method="POST" action="{{ url_for('rfidpin') }}">
+                            <div class="form-group">
+                                <label for="password" class="form-label">Enter Pin</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <span class="input-icon">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-login">
+                                <i class="fas fa-sign-in-alt"></i>&nbsp; Authenticate
+                            </button>
+                        </form>
+
+                        {% if error %}
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-circle"></i>
+                            {{ error }}
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urja Thermal Plant - Red Team Exercise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #420000 0%, #7a0000 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .left-panel {
+            flex: 1;
+            padding: 2rem 4rem;
+            background: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+    margin-bottom: 2rem;
+    /* Added these properties */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.logo img {
+    width: 400px;  /* Increased from 60px to 200px */
+    height: auto;
+    object-fit: contain; /* Ensures image maintains aspect ratio */
+    max-height: 400px; /* Prevents excessive vertical growth */
+}
+
+/* Adjust left panel padding to accommodate larger logo */
+.left-panel {
+    flex: 1;
+    padding: 2rem 4rem; /* Reduced top/bottom padding from 4rem to 2rem */
+    background: white;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Adjust spacing after logo */
+h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 1rem; /* Reduced from 1.5rem */
+    line-height: 1.2;
+}
+
+/* Adjust stats margin */
+.stats {
+    display: flex;
+    gap: 1.5rem; /* Reduced from 2rem */
+    margin-bottom: 2rem; /* Reduced from 3rem */
+}
+
+        .stat-item {
+            background: rgba(190, 0, 0, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            flex: 1;
+            border: 1px solid rgba(190, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #be0000;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #be0000 0%, #8b0000 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(135deg, #8b0000 0%, #600000 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(190, 0, 0, 0.2);
+        }
+
+        .right-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            padding: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .RFID-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(190, 0, 0, 0.1);
+        }
+
+        .decoration {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #be0000;
+            opacity: 0.05;
+            border-radius: 50%;
+            filter: blur(40px);
+        }
+
+        .decoration-1 {
+            top: -100px;
+            right: -100px;
+        }
+
+        .decoration-2 {
+            bottom: -100px;
+            left: -100px;
+        }
+
+        /* Security Badge */
+        /* .security-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(190, 0, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: #be0000;
+            border: 1px solid rgba(190, 0, 0, 0.2);
+        } */
+
+        @media (max-width: 968px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-panel, .right-panel {
+                padding: 2rem;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            /* .security-badge {
+                position: static;
+                margin-bottom: 1rem;
+            } */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <!-- <div class="security-badge">
+                <i class="fas fa-shield-alt"></i>
+                RED TEAM EXERCISE
+            </div> -->
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/urja-logo.png') }}" alt="Urja Thermal Plant Logo">
+            </div>
+            <h1>Welcome to Urja Thermal Plant</h1>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Operation Hours</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">System Uptime</div>
+                </div>
+            </div>
+
+            <a href="{{ url_for('login') }}" class="login-btn">
+                <i class="fas fa-shield-alt"></i>&nbsp; Rfid Login
+            </a>
+        </div>
+        <div class="right-panel">
+            <div class="decoration decoration-1"></div>
+            <div class="decoration decoration-2"></div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <h2 style="color: #1e293b; margin-bottom: 0.5rem;">Place Your RFID Card Here</h2>
+                <img src="{{ url_for('static', filename='images/rfid.gif') }}" alt="RFID Scanner" class="RFID-image">
+            </div>
+        </div>
+    </div>
+    <!-- <footer style="background: rgba(255, 255, 255, 0.9); padding: 1rem; text-align: center; border-top: 1px solid rgba(190, 0, 0, 0.1); position: fixed; bottom: 0; left: 0; right: 0; width: 100%; box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); z-index: 100;"><p style="color: #333; font-size: 0.9rem; margin: 0;">&copy; 2024 Urja Thermal Plant. All rights reserved.</p><p><a href="https://hacktify.in" style="color: #be0000; text-decoration: none;">Privacy Policy</a> | <a href="https://github.com/urjathermal" style="color: #be0000; text-decoration: none;">Terms of Service</a></p></footer> -->
+</body>
+</html>
