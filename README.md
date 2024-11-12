@@ -67,7 +67,7 @@ Once the dashboard is open in your browser, you’ll be able to view the real-ti
 - **Search and Filter**: Easily search for specific RFID tags or individuals and filter by time or status.
 
 ## License
-This project is licensed under the MIT License. You are free to use, modify, and distribute the code under the terms of the license.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
 
 ## Contact
 For any questions or support, feel free to reach out:
